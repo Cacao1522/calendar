@@ -374,6 +374,7 @@ export default function Home() {
           name="description"
           content="名工大プログラミング部C0deのWeb班が制作したカレンダーアプリです。Googleアカウントでログインできます。"
         />
+        <meta name="google-site-verification" content="HU9359Egr_Y0kN-unK33sVKLYf1Ht5qwdVkh_ls5sRw" />
       </Head>
       {coverElement}
       {formElement}
