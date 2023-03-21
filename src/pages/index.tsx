@@ -363,11 +363,11 @@ export default function Home() {
     </div>
   );
 
-  const loginMessage = (
-    (auth.currentUser == null) && (
-      <div className={classes.login}>ポップアップ画面からログインしてください</div>
-    )
-  )
+  // const loginMessage = (
+  //   (auth.currentUser == null) && (
+  //     <div className={classes.login}>ポップアップ画面からログインしてください</div>
+  //   )
+  // )
 
   let past = new Date();
   past.setMonth(past.getMonth() - 3);
@@ -382,7 +382,7 @@ export default function Home() {
         />
         <meta name="google-site-verification" content="HU9359Egr_Y0kN-unK33sVKLYf1Ht5qwdVkh_ls5sRw" />
       </Head>
-      {loginMessage}
+      {/* {loginMessage} */}
       {coverElement}
       {formElement}
       <StyleWrapper>
