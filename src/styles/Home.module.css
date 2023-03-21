@@ -3,6 +3,9 @@
   margin: 0 auto;
   margin-top: 10px;
 }
+.login {
+  text-align: center;
+}
 .cover {
   opacity: 0;
   visibility: hidden;
