@@ -447,13 +447,15 @@ export default function Home() {
           }}
           views={{
             timeGridWeek: {
-              titleFormat: { month: "short", day: "numeric", weekday: "short" },
+              titleFormat: { month: "numeric", day: "numeric" },
               dayHeaderFormat: {
                 day: "numeric",
                 weekday: "short",
               },
             },
           }}
+          nowIndicator={true}
+          longPressDelay={0}
         />
       </StyleWrapper>
     </div>
@@ -477,7 +479,7 @@ const StyleWrapper = styled.div`
   }
   .fc .fc-toolbar-title {
     @media (max-width: 670px) {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
     }
     // color: #37362f;
   }
@@ -486,6 +488,9 @@ const StyleWrapper = styled.div`
     // color: #acaba9;
     border: 1px solid #aaa;
     // outline: none;
+    @media (max-width: 670px) {
+      padding: 3px 5px;
+    }
   }
   .fc .fc-today-button {
     // background-color: #ffffff00;
@@ -511,4 +516,19 @@ const StyleWrapper = styled.div`
   .fc-dayGridMonth-button {
     margin-left: 5px;
   }
+  @media (max-width: 670px) {
+    .fc-daygrid-dot-event {
+      flex-wrap: wrap;
+      padding: 0;
+    }
+    .fc-event, .fc-daygrid-event, .fc-event-start, .fc-event-end {
+      margin: 0;
+      padding: 0;
+    }
+    .fc-daygrid-event-dot {
+      margin: 0 2px
+    }
+    
+  }
+ 
 `;
