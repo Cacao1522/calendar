@@ -14,14 +14,15 @@ import "../../components/fire";
 import "firebase/compat/auth";
 import Head from "next/head";
 
-import classes from "@/styles/Home.module.css";
+import classes from "@/styles/Home.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
 import styled from "@emotion/styled";
 
 var auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 const db = firebase.firestore();
-auth.signOut();
+
+// auth.signOut();
 registerLocale("ja", ja);
 interface myEventsType {
   id: any;
@@ -44,48 +45,82 @@ export default function Home() {
   const [inView, setInView] = useState(false); // イベント登録フォームの表示有無。(trueなら表示する。)
   const [isChange, setIsChange] = useState(false); // 既存イベントをクリックするとtrue
   const [allday, setAllday] = useState(false); // 終日イベントかどうか
+  const [isLogin, setIsLogin] = useState(false); // ログインしているかどうか
 
-  useEffect(() => {
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then((result) => {
-        console.log(result.user.email);
+//   useEffect(() => {
+    
+//     firebase.auth().onAuthStateChanged(user => {
+//     if (user) {
+//       console.log(user)
+//       db.collection(user.email) //.orderBy("start", "desc")
+//             .get()
+//             .then(async (snapshot) => {
+//               for await (const document of snapshot.docs) {
+//                 const doc = document.data(); 
+//                 const oneMonth = 31 * 24 * 60 * 60 * 1000;
+//                 if (
+//                   (new Date().getTime() - doc.start.toDate().getTime()) /
+//                     oneMonth > 2
+//                 ) {
+//                   setInId(document.id);
+//                   db.collection(user.email).doc(document.id).delete();
+//                 }
+//                 console.log(doc.title)
+//                 ref.current.getApi().addEvent({
+//                   id: document.id,
+//                   title: doc.title,
+//                   start: doc.start.toDate(),
+//                   end: doc.end.toDate(),
+//                   allDay: doc.allDay,
+//                   backgroundColor: doc.backgroundColor,
+//                 });
+//               }
+//             })
+//       setIsLogin(true)
+//     } 
+//   })
+// }, [ref])
+  // useEffect(() => {
+  //   firebase
+  //     .auth()
+  //     .signInWithPopup(provider)
+  //     .then((result) => {
+  //       console.log(result.user.email);
 
-        if (result.user != null) {
-          db.collection(result.user.email) //.orderBy("start", "desc")
-            .get()
-            .then(async (snapshot) => {
-              for await (const document of snapshot.docs) {
-                const doc = document.data(); 
-                const oneMonth = 31 * 24 * 60 * 60 * 1000;
-                // console.log(
-                //   (new Date().getTime() - doc.start.toDate().getTime()) /
-                //     oneMonth
-                // );
-                if (
-                  (new Date().getTime() - doc.start.toDate().getTime()) /
-                    oneMonth > 2
-                ) {
-                  setInId(document.id);
-                  db.collection(result.user.email).doc(document.id).delete();
-                }
+  //       if (result.user != null) {
+  //         db.collection(result.user.email) //.orderBy("start", "desc")
+  //           .get()
+  //           .then(async (snapshot) => {
+  //             for await (const document of snapshot.docs) {
+  //               const doc = document.data(); 
+  //               const oneMonth = 31 * 24 * 60 * 60 * 1000;
+  //               // console.log(
+  //               //   (new Date().getTime() - doc.start.toDate().getTime()) /
+  //               //     oneMonth
+  //               // );
+  //               if (
+  //                 (new Date().getTime() - doc.start.toDate().getTime()) /
+  //                   oneMonth > 2
+  //               ) {
+  //                 setInId(document.id);
+  //                 db.collection(result.user.email).doc(document.id).delete();
+  //               }
 
-                ref.current.getApi().addEvent({
-                  id: document.id,
-                  title: doc.title,
-                  start: doc.start.toDate(),
-                  end: doc.end.toDate(),
-                  allDay: doc.allDay,
-                  backgroundColor: doc.backgroundColor,
-                });
-                //eventArray.push({id: doc.id, title: doc.title, start: doc.start.toDate(), end: doc.end.toDate()})
-              }
-              //setMyEvents(eventArray)
-            });
-        }
-      });
-  }, []);
+  //               ref.current.getApi().addEvent({
+  //                 id: document.id,
+  //                 title: doc.title,
+  //                 start: doc.start.toDate(),
+  //                 end: doc.end.toDate(),
+  //                 allDay: doc.allDay,
+  //                 backgroundColor: doc.backgroundColor,
+  //               });
+  //               //eventArray.push({id: doc.id, title: doc.title, start: doc.start.toDate(), end: doc.end.toDate()})
+  //             }
+  //             //setMyEvents(eventArray)
+  //           });
+  //       }
+  //     });
+  // }, []);
 
   // 既存イベントをクリックしたとき
   const handleCLick = (info: any) => {
@@ -363,15 +398,63 @@ export default function Home() {
     </div>
   );
 
-  // const loginMessage = (
-  //   (auth.currentUser == null) && (
-  //     <div className={classes.login}>ポップアップ画面からログインしてください</div>
-  //   )
-  // )
+  const loginButton = (
+    !isLogin && ( 
+      <input
+  className={`${classes.rightButton} ${classes.login}`}
+  type="button"
+  value="ログイン"
+  onClick={() => login()}
+/>)
+  )
+  
+
+  const login = () => {
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        // console.log(result.user.email);
+
+        if (result.user != null) {
+          db.collection(result.user.email) //.orderBy("start", "desc")
+            .get()
+            .then(async (snapshot) => {
+              for await (const document of snapshot.docs) {
+                const doc = document.data(); 
+                const oneMonth = 31 * 24 * 60 * 60 * 1000;
+                // console.log(
+                //   (new Date().getTime() - doc.start.toDate().getTime()) /
+                //     oneMonth
+                // );
+                if (
+                  (new Date().getTime() - doc.start.toDate().getTime()) /
+                    oneMonth > 2
+                ) {
+                  setInId(document.id);
+                  db.collection(result.user.email).doc(document.id).delete();
+                }
+
+                ref.current.getApi().addEvent({
+                  id: document.id,
+                  title: doc.title,
+                  start: doc.start.toDate(),
+                  end: doc.end.toDate(),
+                  allDay: doc.allDay,
+                  backgroundColor: doc.backgroundColor,
+                });
+                setIsLogin(true)
+                //eventArray.push({id: doc.id, title: doc.title, start: doc.start.toDate(), end: doc.end.toDate()})
+              }
+              //setMyEvents(eventArray)
+            });
+        }
+      })
+    }
 
   let past = new Date();
   past.setMonth(past.getMonth() - 3);
-
+// console.log(auth.currentUser)
   return (
     <div className={classes.margin}>
       <Head>
@@ -382,7 +465,7 @@ export default function Home() {
         />
         <meta name="google-site-verification" content="HU9359Egr_Y0kN-unK33sVKLYf1Ht5qwdVkh_ls5sRw" />
       </Head>
-      {/* {loginMessage} */}
+      {loginButton}
       {coverElement}
       {formElement}
       <StyleWrapper>
