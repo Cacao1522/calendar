@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import allLocales from "@fullcalendar/core/locales-all";
-import googleCalendarPlugin from "@fullcalendar/google-calendar";
+// import googleCalendarPlugin from "@fullcalendar/google-calendar";
 import interactionPlugin from "@fullcalendar/interaction";
 import DatePicker, { registerLocale } from "react-datepicker";
 import ja from "date-fns/locale/ja";
@@ -404,7 +404,7 @@ export default function Home() {
             timeGridPlugin,
             interactionPlugin,
             listPlugin,
-            googleCalendarPlugin,
+            // googleCalendarPlugin,
           ]}
           initialView="dayGridMonth"
           selectable={true} // 日付選択を可能にする。interactionPluginが有効になっている場合のみ。
