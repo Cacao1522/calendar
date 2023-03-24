@@ -356,7 +356,7 @@ export default function Home() {
                 // );
                 if (
                   (new Date().getTime() - doc.start.toDate().getTime()) /
-                    oneMonth > 2
+                    oneMonth > 5
                 ) {
                   setInId(document.id);
                   db.collection(result.user.email).doc(document.id).delete();
@@ -380,7 +380,7 @@ export default function Home() {
     }
 
   let past = new Date();
-  past.setMonth(past.getMonth() - 3);
+  past.setMonth(past.getMonth() - 6);
 // console.log(auth.currentUser)
   return (
     <div className={classes.margin}>
