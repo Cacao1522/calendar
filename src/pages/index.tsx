@@ -5,7 +5,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import allLocales from "@fullcalendar/core/locales-all";
 import googleCalendarPlugin from "@fullcalendar/google-calendar";
-import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
+import interactionPlugin from "@fullcalendar/interaction";
 import DatePicker, { registerLocale } from "react-datepicker";
 import ja from "date-fns/locale/ja";
 import firebase from "firebase/compat/app";
@@ -47,80 +47,7 @@ export default function Home() {
   const [allday, setAllday] = useState(false); // 終日イベントかどうか
   const [isLogin, setIsLogin] = useState(false); // ログインしているかどうか
 
-//   useEffect(() => {
-    
-//     firebase.auth().onAuthStateChanged(user => {
-//     if (user) {
-//       console.log(user)
-//       db.collection(user.email) //.orderBy("start", "desc")
-//             .get()
-//             .then(async (snapshot) => {
-//               for await (const document of snapshot.docs) {
-//                 const doc = document.data(); 
-//                 const oneMonth = 31 * 24 * 60 * 60 * 1000;
-//                 if (
-//                   (new Date().getTime() - doc.start.toDate().getTime()) /
-//                     oneMonth > 2
-//                 ) {
-//                   setInId(document.id);
-//                   db.collection(user.email).doc(document.id).delete();
-//                 }
-//                 console.log(doc.title)
-//                 ref.current.getApi().addEvent({
-//                   id: document.id,
-//                   title: doc.title,
-//                   start: doc.start.toDate(),
-//                   end: doc.end.toDate(),
-//                   allDay: doc.allDay,
-//                   backgroundColor: doc.backgroundColor,
-//                 });
-//               }
-//             })
-//       setIsLogin(true)
-//     } 
-//   })
-// }, [ref])
-  // useEffect(() => {
-  //   firebase
-  //     .auth()
-  //     .signInWithPopup(provider)
-  //     .then((result) => {
-  //       console.log(result.user.email);
 
-  //       if (result.user != null) {
-  //         db.collection(result.user.email) //.orderBy("start", "desc")
-  //           .get()
-  //           .then(async (snapshot) => {
-  //             for await (const document of snapshot.docs) {
-  //               const doc = document.data(); 
-  //               const oneMonth = 31 * 24 * 60 * 60 * 1000;
-  //               // console.log(
-  //               //   (new Date().getTime() - doc.start.toDate().getTime()) /
-  //               //     oneMonth
-  //               // );
-  //               if (
-  //                 (new Date().getTime() - doc.start.toDate().getTime()) /
-  //                   oneMonth > 2
-  //               ) {
-  //                 setInId(document.id);
-  //                 db.collection(result.user.email).doc(document.id).delete();
-  //               }
-
-  //               ref.current.getApi().addEvent({
-  //                 id: document.id,
-  //                 title: doc.title,
-  //                 start: doc.start.toDate(),
-  //                 end: doc.end.toDate(),
-  //                 allDay: doc.allDay,
-  //                 backgroundColor: doc.backgroundColor,
-  //               });
-  //               //eventArray.push({id: doc.id, title: doc.title, start: doc.start.toDate(), end: doc.end.toDate()})
-  //             }
-  //             //setMyEvents(eventArray)
-  //           });
-  //       }
-  //     });
-  // }, []);
 
   // 既存イベントをクリックしたとき
   const handleCLick = (info: any) => {
