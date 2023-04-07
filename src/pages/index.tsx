@@ -265,6 +265,7 @@ export default function Home() {
             value="キャンセル"
             onClick={() => {
               setInView(false);
+              setIsChange(false);
             }}
           />
           <input
@@ -282,6 +283,7 @@ export default function Home() {
             value="キャンセル"
             onClick={() => {
               setInView(false);
+              setIsChange(false);
             }}
           />
           <input
