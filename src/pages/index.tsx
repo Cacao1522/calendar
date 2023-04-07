@@ -525,7 +525,7 @@ const StyleWrapper = styled.div`
   
   @media (max-width: 670px) {
     .fc .fc-toolbar.fc-header-toolbar {
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     .fc-dayGridMonth-button, .fc-timeGridWeek-button {
       padding: 6px 11px;
